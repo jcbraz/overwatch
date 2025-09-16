@@ -1,0 +1,31 @@
+[project]
+name = "overwatch"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+
+dependencies = [
+    "edge-mdt-tpc>=1.2.0",
+    "fastapi>=0.116.1",
+    "model-compression-toolkit>=2.3.0,<2.4.1",
+    "mct-quantizers>=1.5.0,<1.6.dev0",
+    "onnx<1.17",
+    # ONNX Runtime: use older version on aarch64 Linux for IMX500 compatibility
+    "onnxruntime>=1.19.2,<1.20.dev0; sys_platform == 'linux' and platform_machine == 'aarch64'",
+    # ONNX Runtime: use newer version on all other platforms
+    "onnxruntime>=1.22.1; sys_platform != 'linux' or platform_machine != 'aarch64'",
+    "picamera2>=0.3.31",
+    "pydantic<=2.11.7",
+    "sony-custom-layers>=0.3.0",
+    "tensorflow-decision-forests>=1.8.0; platform_machine != 'aarch64'",
+    "ultralytics[export]==8.3.178",
+    "uvicorn[standard]>=0.35.0",
+    # IMX500 converter only on Raspberry Pi
+    "imx500-converter[pt]==3.16.1; sys_platform == 'linux' and platform_machine == 'aarch64'",
+]
+
+[tool.uv]
+environments = [
+    "sys_platform == 'linux' and platform_machine == 'aarch64'"
+]
